@@ -1,4 +1,3 @@
-<!-- src/components/UserSearch.vue -->
 <template>
   <v-container>
     <v-card class="max-width-md mx-auto p-4">
@@ -14,6 +13,13 @@
           dense
         />
       </v-card-subtitle>
+      <!-- Loader -->
+      <v-progress-circular
+        v-if="loading"
+        indeterminate
+        color="primary"
+        class="my-4 loader"
+      ></v-progress-circular>
     </v-card>
   </v-container>
 </template>
@@ -25,11 +31,17 @@ export default {
   data() {
     return {
       searchTerm: '',
+      loading: false, // Loader state
     };
   },
   methods: {
-    onSearch() {
-      this.$emit('search-user', this.searchTerm);
+    async onSearch() {
+      this.loading = true; // Start loader
+      try {
+        await this.$emit('search-user', this.searchTerm);
+      } finally {
+        this.loading = false; // Stop loader
+      }
     },
     debouncedSearch: debounce(function() {
       this.onSearch();
@@ -37,3 +49,10 @@ export default {
   },
 };
 </script>
+
+<style>
+.loader {
+  margin: auto !important;
+  display: flex;
+}
+</style>

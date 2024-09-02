@@ -20,14 +20,24 @@ const store = createStore({
       },
       actions: {
         async fetchUserDetails({ commit }, userId) {
-          const { data } = await axios.get(`https://jsonplaceholder.typicode.com/users/${userId}`);
-          commit('SET_USER_DETAILS', data);
+          try {
+            const { data } = await axios.get(`https://jsonplaceholder.typicode.com/users/${userId}`);
+            commit('SET_USER_DETAILS', data || {}); // Set to empty object if data is null or undefined
+          } catch (error) {
+            console.error('Error fetching user details:', error);
+            commit('SET_USER_DETAILS', {}); // Set to empty object in case of error
+          }
         },
         async fetchUserPosts({ commit }, userId) {
-          const { data } = await axios.get(`https://jsonplaceholder.typicode.com/posts`, {
-            params: { userId },
-          });
-          commit('SET_USER_POSTS', data);
+          try {
+            const { data } = await axios.get(`https://jsonplaceholder.typicode.com/posts`, {
+              params: { userId },
+            });
+            commit('SET_USER_POSTS', data || []); // Set to empty array if data is null or undefined
+          } catch (error) {
+            console.error('Error fetching user posts:', error);
+            commit('SET_USER_POSTS', []); // Set to empty array in case of error
+          }
         },
       },
     },
