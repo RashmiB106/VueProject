@@ -1,13 +1,16 @@
 <!-- src/components/UserPost.vue -->
 <template>
-    <div class="bg-white shadow-md rounded-lg p-4 mb-4">
-        <h4 class="text-lg font-semibold mb-2">{{ post.title }}</h4>
-        <p class="text-gray-600">{{ post.body }}</p>
-    </div>
-</template>
-
-<script>
-export default {
+    <v-card class="mb-4">
+      <v-card-title class="text-h6">{{ post.title }}</v-card-title>
+      <v-card-text class="text-body-2">
+        {{ post.body }}
+      </v-card-text>
+    </v-card>
+  </template>
+  
+  <script>
+  export default {
     props: ['post'],
-};
-</script>
+  };
+  </script>
+  
