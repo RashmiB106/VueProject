@@ -92,7 +92,7 @@ export default {
   background-color: #e0e0e0;
 }
 .showPost-btn button {
-  background: lightseagreen;
+  background: #48A9A6;
   color: white !important;
 }
 .title-bg {
